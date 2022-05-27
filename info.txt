@@ -1,0 +1,2 @@
+No arquivo ConsultaCep.7z estão os fontes da aplicação
+No arquivo bin.7z está o executável cep.exe e o banco sqlite ceps.sdb para armazenamento dos ceps lidos e consulta local
