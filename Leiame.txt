@@ -1,0 +1,5 @@
+******* LEIAME.txt *********
+
+1. Rodar o DesafioScript.sql para criar a tabela "cep"
+
+2. Configurar o arquivo Desafio.ini

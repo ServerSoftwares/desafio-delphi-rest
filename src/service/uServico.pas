@@ -8,7 +8,7 @@ uses Horse, FireDAC.Comp.Client, RESTRequest4D, DataSet.Serialize,
   FireDAC.Stan.Pool, FireDAC.Stan.Async, FireDAC.Phys, FireDAC.Phys.PG,
   FireDAC.Phys.PGDef, FireDAC.VCLUI.Wait, FireDAC.Dapt, System.JSON,
   FireDAC.Stan.Param, FireDAC.DatS, FireDAC.DApt.Intf, FireDAC.Comp.DataSet,
-  Rest.JSON, Data.DBXJSON, REST.Response.Adapter;
+  Rest.JSON, Data.DBXJSON, REST.Response.Adapter, uConsultaCEP;
 
 
 type
@@ -16,12 +16,11 @@ type
   private
     FConexao: TFormConexao;
     FCEP: TCEP;
-    procedure IncluiCEP;
-    function GetCEP(XCEP: string): Boolean;
   public
     constructor Create;
-    function CarregaCEP(XCEP: string): TCEP;
+    function VerificaCEPCadastrado(XCEP: string; out XCta: integer): TCEP;
     function CarregaListaCEP: TFDQuery;
+    procedure IncluiCEP(XCEP: TCEP);
   end;
 
 implementation
@@ -31,13 +30,55 @@ uses
 
 { TServico }
 
-function TServico.CarregaCEP(XCEP: string): TCEP;
+
+procedure TServico.IncluiCEP(XCEP: TCEP);
 var query: TFDQuery;
 begin
-  query    := TFDQuery.Create(nil);
+  query := TFDQuery.Create(nil);
+  try
+    try
+      FConexao.FDConnection1.StartTransaction;
+      with query do
+      begin
+        Connection := FConexao.FDConnection1;
+        DisableControls;
+        Close;
+        SQL.Clear;
+        Params.Clear;
+        SQL.Add('insert into "cep" ("cep","state","city","neighborhood","street","service") ');
+        SQL.Add('values (:xcep,:xstate,:xcity,:xneighborhood,:xstreet,:xservice) ');
+        ParamByName('xcep').AsString          := XCEP.cep;
+        ParamByName('xstate').AsString        := XCEP.state;
+        ParamByName('xcity').AsString         := XCEP.city;
+        ParamByName('xneighborhood').AsString := XCEP.neighborhood;
+        ParamByName('xstreet').AsString       := XCEP.street;
+        ParamByName('xservice').AsString      := XCEP.service;
+        ExecSQL;
+        EnableControls;
+      end;
+      FConexao.FDConnection1.Commit;
+    except
+      On E: Exception do
+      begin
+        FConexao.FDConnection1.Rollback;
+        showmessage('Problema ao incluir CEP '+E.Message);
+      end;
+    end;
+  finally
+    query.DisposeOf;
+  end;
+end;
+
+function TServico.VerificaCEPCadastrado(XCEP: string; out XCta: integer): TCEP;
+var query: TFDQuery;
+begin
+  query := TFDQuery.Create(nil);
   try
     if not FConexao.AbreConexaoBD then
-       exit;
+       begin
+         result := nil;
+         exit;
+       end;
     with query do
     begin
       Connection := Fconexao.FDConnection1;
@@ -50,59 +91,11 @@ begin
       Open;
       EnableControls;
     end;
-
-    if query.RecordCount=0 then //
-       begin
-         if GetCEP(XCEP) then
-            begin
-              IncluiCEP;
-              with query do
-              begin
-                Connection := Fconexao.FDConnection1;
-                DisableControls;
-                Close;
-                SQL.Clear;
-                Params.Clear;
-                SQL.Add('select * from "cep" order by "id" DESC limit 1 ');
-                Open;
-                EnableControls;
-              end;
-            end;
-       end;
+    XCta   := query.RecordCount;
     Result := TJson.JsonToObject<TCEP>(query.ToJSONObject.ToString);
   finally
+    FConexao.FechaConexaoBD;
     query.DisposeOf;
-  end;
-end;
-
-procedure TServico.IncluiCEP;
-var query: TFDQuery;
-begin
-  query := TFDQuery.Create(nil);
-  try
-    with query do
-    begin
-      Connection := FConexao.FDConnection1;
-      DisableControls;
-      Close;
-      SQL.Clear;
-      Params.Clear;
-      SQL.Add('insert into "cep" ("cep","state","city","neighborhood","street","service") ');
-      SQL.Add('values (:xcep,:xstate,:xcity,:xneighborhood,:xstreet,:xservice) ');
-      ParamByName('xcep').AsString          := FCEP.cep;
-      ParamByName('xstate').AsString        := FCEP.state;
-      ParamByName('xcity').AsString         := FCEP.city;
-      ParamByName('xneighborhood').AsString := FCEP.neighborhood;
-      ParamByName('xstreet').AsString       := FCEP.street;
-      ParamByName('xservice').AsString      := FCEP.service;
-      ExecSQL;
-      EnableControls;
-    end;
-  except
-    On E: Exception do
-    begin
-      showmessage('Problema ao incluir CEP '+E.Message);
-    end;
   end;
 end;
 
@@ -123,6 +116,10 @@ begin
       SQL.Add('select * from "cep" order by "cep" ');
       Open;
       EnableControls;
+      query.FieldByName('id').Visible := false;
+      query.FieldByName('city').DisplayWidth := 30;
+      query.FieldByName('neighborhood').DisplayWidth := 30;
+      query.FieldByName('street').DisplayWidth := 30;
     end;
     Result := query;
   finally
@@ -132,32 +129,5 @@ end;
 constructor TServico.Create;
 begin
   Fconexao := TFormConexao.Create(nil);
-end;
-
-function TServico.GetCEP(XCEP: string): Boolean;
-var wresponse: IResponse;
-    wret: boolean;
-    wfiltro: string;
-begin
-  try
-    FConexao.FDMemTableCEP.Open;
-    wresponse := TRequest.New.BaseURL('http://brasilapi.com.br/api/cep/v1/'+XCEP)
-      .Accept('application/json')
-      .Timeout(300000) // 300 segundos
-      .Get;
-    FCEP    := TJson.JsonToObject<TCEP>(wresponse.Content);
-    case wresponse.StatusCode of
-      400,404,500: begin
-                 wret := false;
-               end;
-    else
-       begin
-         wret := true;
-       end;
-    end;
-  except
-    wret := false;
-  end;
-  result := wret;
 end;
 end.

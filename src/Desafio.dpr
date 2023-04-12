@@ -5,9 +5,14 @@ uses
   uDesafio in 'view\uDesafio.pas' {FormDesafio},
   uConexao in 'repository\uConexao.pas' {FormConexao: TDataModule},
   uServico in 'service\uServico.pas',
-  uCEP in 'model\uCEP.pas';
+  uCEP in 'model\uCEP.pas',
+  uConsultaCEP in 'service\uConsultaCEP.pas',
+  uConfigura in 'view\uConfigura.pas' {FormConfigura};
 
 {$R *.res}
+
+var
+   FCEPAutomatico: integer;
 
 begin
   Application.Initialize;

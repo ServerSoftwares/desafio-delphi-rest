@@ -1,0 +1,12 @@
+{
+	"name": "DesafioDelphi",
+	"description": "",
+	"version": "1.0.0",
+	"homepage": "",
+	"mainsrc": "./",
+	"projects": [],
+	"dependencies": {
+		"github.com/hashload/horse": "^3.1.0",
+		"https://github.com/viniciussanchez/restrequest4delphi": "^v3.1.0"
+	}
+}

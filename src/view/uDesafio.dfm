@@ -2,10 +2,9 @@ object FormDesafio: TFormDesafio
   Left = 0
   Top = 0
   BorderIcons = [biSystemMenu]
-  BorderStyle = bsSingle
   Caption = 'Desafio'
-  ClientHeight = 458
-  ClientWidth = 678
+  ClientHeight = 448
+  ClientWidth = 668
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -13,27 +12,28 @@ object FormDesafio: TFormDesafio
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  Visible = True
+  OnActivate = FormActivate
   OnClose = FormClose
   PixelsPerInch = 96
   TextHeight = 13
   object Panel1: TPanel
     Left = 0
     Top = 0
-    Width = 678
+    Width = 668
     Height = 81
     Align = alTop
     BevelOuter = bvNone
     Color = clGradientActiveCaption
     ParentBackground = False
     TabOrder = 0
-    ExplicitWidth = 713
     DesignSize = (
-      678
+      668
       81)
     object Shape1: TShape
       Left = 5
       Top = 30
-      Width = 665
+      Width = 655
       Height = 2
       Anchors = [akLeft, akTop, akRight]
       ExplicitWidth = 700
@@ -51,12 +51,28 @@ object FormDesafio: TFormDesafio
       Font.Style = [fsBold]
       ParentFont = False
     end
+    object SpeedButton1: TSpeedButton
+      Left = 613
+      Top = 8
+      Width = 47
+      Height = 22
+      Caption = 'Configura'
+      Flat = True
+      OnClick = SpeedButton1Click
+    end
+    object Gauge1: TGauge
+      Left = 560
+      Top = 38
+      Width = 100
+      Height = 29
+      Progress = 0
+    end
     object MaskEditCEP: TMaskEdit
       Left = 5
       Top = 38
-      Width = 139
+      Width = 137
       Height = 29
-      EditMask = '00000\-000;0; '
+      EditMask = '99999\-999;0; '
       Font.Charset = ANSI_CHARSET
       Font.Color = clWindowText
       Font.Height = -16
@@ -86,9 +102,10 @@ object FormDesafio: TFormDesafio
   object cxPageControlCEP: TcxPageControl
     Left = 0
     Top = 81
-    Width = 678
-    Height = 377
+    Width = 668
+    Height = 367
     Align = alClient
+    Color = clBtnFace
     ParentBackground = False
     ParentColor = False
     TabOrder = 1
@@ -97,21 +114,15 @@ object FormDesafio: TFormDesafio
     Properties.Style = 9
     Properties.TabPosition = tpBottom
     OnChange = cxPageControlCEPChange
-    ExplicitLeft = 32
-    ExplicitTop = 208
-    ExplicitWidth = 289
-    ExplicitHeight = 193
-    ClientRectBottom = 357
-    ClientRectRight = 678
+    ClientRectBottom = 347
+    ClientRectRight = 668
     ClientRectTop = 0
     object cxTabSheetFicha: TcxTabSheet
       Caption = 'Ficha'
       ImageIndex = 0
-      ExplicitTop = 6
-      ExplicitWidth = 713
       DesignSize = (
-        678
-        357)
+        668
+        347)
       object Label2: TLabel
         Left = 5
         Top = 9
@@ -192,108 +203,116 @@ object FormDesafio: TFormDesafio
       end
       object Edit1: TEdit
         Left = 5
-        Top = 29
-        Width = 665
+        Top = 27
+        Width = 655
         Height = 29
+        TabStop = False
         Anchors = [akLeft, akTop, akRight]
+        Color = clInactiveCaption
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
         Font.Height = -16
         Font.Name = 'Segoe UI'
         Font.Style = [fsBold]
         ParentFont = False
+        ReadOnly = True
         TabOrder = 0
-        ExplicitWidth = 700
       end
       object Edit2: TEdit
         Left = 5
         Top = 87
-        Width = 665
+        Width = 655
         Height = 29
+        TabStop = False
         Anchors = [akLeft, akTop, akRight]
+        Color = clInactiveCaption
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
         Font.Height = -16
         Font.Name = 'Segoe UI'
         Font.Style = [fsBold]
         ParentFont = False
+        ReadOnly = True
         TabOrder = 1
-        ExplicitWidth = 700
       end
       object Edit3: TEdit
         Left = 5
         Top = 145
-        Width = 665
+        Width = 655
         Height = 29
+        TabStop = False
         Anchors = [akLeft, akTop, akRight]
+        Color = clInactiveCaption
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
         Font.Height = -16
         Font.Name = 'Segoe UI'
         Font.Style = [fsBold]
         ParentFont = False
+        ReadOnly = True
         TabOrder = 2
-        ExplicitWidth = 700
       end
       object Edit4: TEdit
         Left = 5
         Top = 203
-        Width = 665
+        Width = 655
         Height = 29
+        TabStop = False
         Anchors = [akLeft, akTop, akRight]
+        Color = clInactiveCaption
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
         Font.Height = -16
         Font.Name = 'Segoe UI'
         Font.Style = [fsBold]
         ParentFont = False
+        ReadOnly = True
         TabOrder = 3
-        ExplicitWidth = 700
       end
       object Edit5: TEdit
         Left = 5
         Top = 260
-        Width = 665
+        Width = 655
         Height = 29
+        TabStop = False
         Anchors = [akLeft, akTop, akRight]
+        Color = clInactiveCaption
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
         Font.Height = -16
         Font.Name = 'Segoe UI'
         Font.Style = [fsBold]
         ParentFont = False
+        ReadOnly = True
         TabOrder = 4
-        ExplicitWidth = 700
       end
       object Edit6: TEdit
         Left = 5
         Top = 316
-        Width = 665
+        Width = 655
         Height = 29
+        TabStop = False
         Anchors = [akLeft, akTop, akRight]
+        Color = clInactiveCaption
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
         Font.Height = -16
         Font.Name = 'Segoe UI'
         Font.Style = [fsBold]
         ParentFont = False
+        ReadOnly = True
         TabOrder = 5
-        ExplicitWidth = 700
       end
     end
     object cxTabSheetLista: TcxTabSheet
       Caption = 'Lista'
       ImageIndex = 1
-      ExplicitLeft = 4
-      ExplicitTop = 24
-      ExplicitWidth = 281
-      ExplicitHeight = 165
       object wwDBGrid1: TwwDBGrid
         AlignWithMargins = True
         Left = 5
         Top = 5
-        Width = 668
-        Height = 347
+        Width = 658
+        Height = 337
         Margins.Left = 5
         Margins.Top = 5
         Margins.Right = 5
@@ -314,15 +333,16 @@ object FormDesafio: TFormDesafio
         TitleFont.Style = []
         TitleLines = 1
         TitleButtons = False
-        ExplicitLeft = 96
-        ExplicitTop = 120
-        ExplicitWidth = 320
-        ExplicitHeight = 120
       end
     end
   end
   object DataSource1: TDataSource
     Left = 296
     Top = 153
+  end
+  object Timer1: TTimer
+    OnTimer = Timer1Timer
+    Left = 464
+    Top = 136
   end
 end

@@ -16,27 +16,32 @@ File_13=TSourceModule,'C:\Program Files (x86)\Embarcadero\Studio\18.0\source\dat
 File_14=TSourceModule,'C:\Program Files (x86)\Embarcadero\Studio\18.0\source\data\firedac\FireDAC.Comp.UI.pas',0,1,4,1,12,0,0,,
 
 [Modules]
-Module0=C:\ProDelphiBerlin\DesafioDelphi\src\repository\uConexao.pas
-Module1=C:\ProDelphiBerlin\DesafioDelphi\src\view\uDesafio.pas
+Module0=C:\ProDelphiBerlin\TSC-TrabinDFeBerlin\uDataModuleTrabin.pas
+Module1=C:\ProDelphiBerlin\DesafioDelphi\src\repository\uConexao.pas
 Module2=default.htm
-Count=3
+Module3=C:\ProDelphiBerlin\DesafioDelphi\src\view\uDesafio.pas
+Count=4
 EditWindowCount=1
 
-[C:\ProDelphiBerlin\DesafioDelphi\src\repository\uConexao.pas]
+[C:\ProDelphiBerlin\TSC-TrabinDFeBerlin\uDataModuleTrabin.pas]
 ModuleType=TSourceModule
 
-[C:\ProDelphiBerlin\DesafioDelphi\src\view\uDesafio.pas]
+[C:\ProDelphiBerlin\DesafioDelphi\src\repository\uConexao.pas]
 ModuleType=TSourceModule
 
 [default.htm]
 ModuleType=TURLModule
 
+[C:\ProDelphiBerlin\DesafioDelphi\src\view\uDesafio.pas]
+ModuleType=TSourceModule
+
 [EditWindow0]
-ViewCount=3
-CurrentEditView=C:\ProDelphiBerlin\DesafioDelphi\src\repository\uConexao.pas
+ViewCount=4
+CurrentEditView=C:\ProDelphiBerlin\TSC-TrabinDFeBerlin\uDataModuleTrabin.pas
 View0=0
 View1=1
 View2=2
+View3=3
 PercentageSizes=1
 Create=1
 Visible=1
@@ -55,7 +60,7 @@ BorlandEditorCodeExplorer=BorlandEditorCodeExplorer@EditWindow0
 TopPanelSize=0
 LeftPanelSize=1898
 LeftPanelClients=PropertyInspector,DockSite3
-LeftPanelData=0000080001010100000009000000446F636B53697465339110000000000000016A070000000000000100000000500E000009000000446F636B53697465330100000000051E00001100000050726F7065727479496E73706563746F72FFFFFFFF
+LeftPanelData=000008000101000000009110000000000000016A070000000000000100000000500E000009000000446F636B53697465330100000000051E00001100000050726F7065727479496E73706563746F72FFFFFFFF
 RightPanelSize=0
 RightPanelClients=DockSite2,DockSite4
 RightPanelData=0000080001010200000009000000446F636B536974653209000000446F636B5369746534AC1300000000000001D007000000000000FFFFFFFF
@@ -84,6 +89,17 @@ EditViewName=Borland.FormDesignerView
 [View2]
 CustomEditViewType=TEditView
 Module=C:\ProDelphiBerlin\DesafioDelphi\src\repository\uConexao.pas
+CursorX=1
+CursorY=1
+TopLine=1
+LeftCol=1
+Elisions=
+Bookmarks=
+EditViewName=Borland.FormDesignerView
+
+[View3]
+CustomEditViewType=TEditView
+Module=C:\ProDelphiBerlin\TSC-TrabinDFeBerlin\uDataModuleTrabin.pas
 CursorX=1
 CursorY=1
 TopLine=1
@@ -262,13 +278,13 @@ Visible=1
 Docked=1
 State=0
 Left=0
-Top=18
+Top=295
 Width=1898
-Height=7863
+Height=3994
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=1898
-ClientHeight=7863
+ClientHeight=3994
 TBDockHeight=8226
 LRDockWidth=1898
 Dockable=1
@@ -277,8 +293,8 @@ SplitPos=111
 
 [PropInspDesignerSelection]
 ArrangeBy=Name
-SelectedItem=LoginDialog,OnCreate
-ExpandedItems=Border=0,BorderIcons=1,Fill=0,FormFactor=0,Anchors=0,Constraints=0,Font=0,BevelEdges=0,Brush=0,LiveBindings=0,"LiveBindings Designer=0",Margins=0,Pen=0,Touch=0,StyleElements=0,GlassFrame=0,HorzScrollBar=0,Padding=0,ConnectedStoredUsage=0,FetchOptions=0,FormatOptions=0,Params=0,ResourceOptions=0,TxOptions=0,UpdateOptions=0
+SelectedItem=VendorLib,
+ExpandedItems=ConnectedStoredUsage=0,FetchOptions=0,FormatOptions=0,"LiveBindings Designer=0",Params=0
 
 [ClassBrowserTool]
 PercentageSizes=1
@@ -876,7 +892,7 @@ HostDockSite=DockLeftPanel
 DockSiteType=1
 PercentageSizes=1
 Create=1
-Visible=0
+Visible=1
 Docked=1
 State=0
 Left=0

@@ -1,47 +1,57 @@
 ﻿[Closed Files]
-File_0=TSourceModule,'C:\TrabinProjects\ProDelphiXe5\TSC-EnterpriseXE5\uMarcacaoConsultas.pas',0,1,1,1,1,0,0,,
-File_1=TSourceModule,'C:\ProDelphiBerlin\TSC-TrabinDFeBerlin\uDistribuicaoDocumentosFiscais.pas',0,1,1,1,1,0,0,,
-File_2=TSourceModule,'C:\ProDelphiBerlin\TSC-ConsultaMedica\uConsultaAgendada.pas',0,1,59,1,79,0,0,,
-File_3=TSourceModule,'C:\ProDelphiBerlin\TSC-ConsultaMedica\uDataModuleConsultaMedica.pas',0,1,1,1,1,0,0,,
-File_4=TSourceModule,'C:\ProDelphiBerlin\TSC-ConsultaMedica\uLogin.pas',0,1,1,13,1,0,0,,
-File_5=TSourceModule,'C:\ProDelphiBerlin\TSC-CaixaNFCeBerlin\uCupomNFCe.pas',0,1,28372,28,28435,0,0,,
-File_6=TSourceModule,'C:\ProDelphiBerlin\TSC-CaixaNFCeBerlin\uDataModuleTrabin.pas',0,1,1,1,1,0,0,,
-File_7=TSourceModule,'C:\ProDelphiBerlin\TSC-CaixaNFCeBerlin\uVersao.pas',0,1,22,99,33,0,0,,
-File_8=TSourceModule,'C:\ProDelphiBerlin\TSC-CaixaNFCeBerlin\uIdentificaConsumidor.pas',0,1,400,1,400,0,0,,
-File_9=TSourceModule,'C:\ProDelphiBerlin\TSC-CaixaNFCeBerlin\uPesquisaPessoa.pas',0,1,783,5,799,0,0,,
-File_10=TSourceModule,'c:\program files (x86)\embarcadero\studio\18.0\SOURCE\RTL\SYS\System.pas',0,1,16518,1,16529,0,0,,
-File_11=TSourceModule,'c:\program files (x86)\embarcadero\studio\18.0\SOURCE\VCL\Vcl.Controls.pas',0,1,9839,1,9850,0,0,,
-File_12=TSourceModule,'Z:\uCupomNFCe.pas',0,1,23827,1,23840,0,0,,
-File_13=TSourceModule,'C:\Program Files (x86)\Embarcadero\Studio\18.0\source\data\firedac\FireDAC.Phys.PG.pas',0,1,3183,50,47,0,0,,
-File_14=TSourceModule,'C:\Program Files (x86)\Embarcadero\Studio\18.0\source\data\firedac\FireDAC.Comp.UI.pas',0,1,4,1,12,0,0,,
+File_0=TSourceModule,'c:\program files (x86)\embarcadero\studio\18.0\source\data\rest\REST.Client.pas',0,1,2924,1,2939,0,0,,
+File_1=TSourceModule,'C:\ProDelphiBerlin\TSC-IntegradorNSBerlin\uProduto.pas',0,1,1,53,23,0,0,,
+File_2=TSourceModule,'c:\program files (x86)\embarcadero\studio\18.0\SOURCE\VCL\Vcl.Controls.pas',0,1,9841,1,9856,0,0,,
+File_3=TSourceModule,'c:\program files (x86)\embarcadero\studio\18.0\SOURCE\RTL\SYS\System.pas',0,1,17798,41,17803,0,0,,
+File_4=TSourceModule,'C:\ProDelphiBerlin\TSC-TrabinDFeBerlin\uDataModuleTrabin.pas',0,1,1,1,1,0,0,,
+File_5=TSourceModule,'C:\TrabinProjects\ProDelphiXe5\TSC-EnterpriseXE5\uMarcacaoConsultas.pas',0,1,1,1,1,0,0,,
+File_6=TSourceModule,'C:\ProDelphiBerlin\TSC-TrabinDFeBerlin\uDistribuicaoDocumentosFiscais.pas',0,1,1,1,1,0,0,,
+File_7=TSourceModule,'C:\ProDelphiBerlin\TSC-ConsultaMedica\uConsultaAgendada.pas',0,1,59,1,79,0,0,,
+File_8=TSourceModule,'C:\ProDelphiBerlin\TSC-ConsultaMedica\uDataModuleConsultaMedica.pas',0,1,1,1,1,0,0,,
+File_9=TSourceModule,'C:\ProDelphiBerlin\TSC-ConsultaMedica\uLogin.pas',0,1,1,13,1,0,0,,
+File_10=TSourceModule,'C:\ProDelphiBerlin\TSC-CaixaNFCeBerlin\uCupomNFCe.pas',0,1,28372,28,28435,0,0,,
+File_11=TSourceModule,'C:\ProDelphiBerlin\TSC-CaixaNFCeBerlin\uDataModuleTrabin.pas',0,1,1,1,1,0,0,,
+File_12=TSourceModule,'C:\ProDelphiBerlin\TSC-CaixaNFCeBerlin\uVersao.pas',0,1,22,99,33,0,0,,
+File_13=TSourceModule,'C:\ProDelphiBerlin\TSC-CaixaNFCeBerlin\uIdentificaConsumidor.pas',0,1,400,1,400,0,0,,
+File_14=TSourceModule,'C:\ProDelphiBerlin\TSC-CaixaNFCeBerlin\uPesquisaPessoa.pas',0,1,783,5,799,0,0,,
 
 [Modules]
-Module0=C:\ProDelphiBerlin\TSC-TrabinDFeBerlin\uDataModuleTrabin.pas
-Module1=C:\ProDelphiBerlin\DesafioDelphi\src\repository\uConexao.pas
-Module2=default.htm
-Module3=C:\ProDelphiBerlin\DesafioDelphi\src\view\uDesafio.pas
-Count=4
+Module0=C:\ProDelphiBerlin\DesafioDelphi\src\service\uConsultaCEP.pas
+Module1=C:\ProDelphiBerlin\DesafioDelphi\src\view\uDesafio.pas
+Module2=C:\ProDelphiBerlin\DesafioDelphi\src\service\uServico.pas
+Module3=C:\ProDelphiBerlin\DesafioDelphi\src\repository\uConexao.pas
+Module4=C:\ProDelphiBerlin\DesafioDelphi\src\model\uCEP.pas
+Module5=default.htm
+Count=6
 EditWindowCount=1
 
-[C:\ProDelphiBerlin\TSC-TrabinDFeBerlin\uDataModuleTrabin.pas]
+[C:\ProDelphiBerlin\DesafioDelphi\src\service\uConsultaCEP.pas]
+ModuleType=TSourceModule
+
+[C:\ProDelphiBerlin\DesafioDelphi\src\view\uDesafio.pas]
+ModuleType=TSourceModule
+
+[C:\ProDelphiBerlin\DesafioDelphi\src\service\uServico.pas]
 ModuleType=TSourceModule
 
 [C:\ProDelphiBerlin\DesafioDelphi\src\repository\uConexao.pas]
 ModuleType=TSourceModule
 
+[C:\ProDelphiBerlin\DesafioDelphi\src\model\uCEP.pas]
+ModuleType=TSourceModule
+
 [default.htm]
 ModuleType=TURLModule
 
-[C:\ProDelphiBerlin\DesafioDelphi\src\view\uDesafio.pas]
-ModuleType=TSourceModule
-
 [EditWindow0]
-ViewCount=4
-CurrentEditView=C:\ProDelphiBerlin\TSC-TrabinDFeBerlin\uDataModuleTrabin.pas
+ViewCount=6
+CurrentEditView=C:\ProDelphiBerlin\DesafioDelphi\src\service\uConsultaCEP.pas
 View0=0
 View1=1
 View2=2
 View3=3
+View4=4
+View5=5
 PercentageSizes=1
 Create=1
 Visible=1
@@ -60,13 +70,13 @@ BorlandEditorCodeExplorer=BorlandEditorCodeExplorer@EditWindow0
 TopPanelSize=0
 LeftPanelSize=1898
 LeftPanelClients=PropertyInspector,DockSite3
-LeftPanelData=000008000101000000009110000000000000016A070000000000000100000000500E000009000000446F636B53697465330100000000051E00001100000050726F7065727479496E73706563746F72FFFFFFFF
+LeftPanelData=000008000101000000002C0E000000000000016A070000000000000100000000500E000009000000446F636B53697465330100000000AE1900001100000050726F7065727479496E73706563746F72FFFFFFFF
 RightPanelSize=0
 RightPanelClients=DockSite2,DockSite4
 RightPanelData=0000080001010200000009000000446F636B536974653209000000446F636B5369746534AC1300000000000001D007000000000000FFFFFFFF
-BottomPanelSize=0
+BottomPanelSize=1032
 BottomPanelClients=DockSite1,MessageView
-BottomPanelData=0000080001020200000009000000446F636B53697465310F0000004D65737361676556696577466F726D853E00000000000002FE05000000000000FFFFFFFF
+BottomPanelData=0000080001020100000009000000446F636B5369746531CA460000000000000208040000000000000100000000CA4600000F0000004D65737361676556696577466F726DFFFFFFFF
 BottomMiddlePanelSize=0
 BottomMiddlePanelClients=DockSite0,GraphDrawingModel
 BottomMiddelPanelData=0000080001020200000009000000446F636B536974653010000000477261706844726177696E67566965779B1D00000000000002EC06000000000000FFFFFFFF
@@ -78,20 +88,20 @@ WelcomePageURL=bds:/default.htm
 [View1]
 CustomEditViewType=TEditView
 Module=C:\ProDelphiBerlin\DesafioDelphi\src\view\uDesafio.pas
-CursorX=25
-CursorY=12
-TopLine=12
+CursorX=32
+CursorY=112
+TopLine=97
 LeftCol=1
 Elisions=
 Bookmarks=
-EditViewName=Borland.FormDesignerView
+EditViewName=C:\ProDelphiBerlin\DesafioDelphi\src\view\uDesafio.pas
 
 [View2]
 CustomEditViewType=TEditView
 Module=C:\ProDelphiBerlin\DesafioDelphi\src\repository\uConexao.pas
 CursorX=1
-CursorY=1
-TopLine=1
+CursorY=11
+TopLine=45
 LeftCol=1
 Elisions=
 Bookmarks=
@@ -99,14 +109,36 @@ EditViewName=Borland.FormDesignerView
 
 [View3]
 CustomEditViewType=TEditView
-Module=C:\ProDelphiBerlin\TSC-TrabinDFeBerlin\uDataModuleTrabin.pas
+Module=C:\ProDelphiBerlin\DesafioDelphi\src\service\uServico.pas
+CursorX=32
+CursorY=23
+TopLine=10
+LeftCol=1
+Elisions=
+Bookmarks=
+EditViewName=C:\ProDelphiBerlin\DesafioDelphi\src\service\uServico.pas
+
+[View4]
+CustomEditViewType=TEditView
+Module=C:\ProDelphiBerlin\DesafioDelphi\src\service\uConsultaCEP.pas
 CursorX=1
+CursorY=41
+TopLine=29
+LeftCol=1
+Elisions=
+Bookmarks=
+EditViewName=C:\ProDelphiBerlin\DesafioDelphi\src\service\uConsultaCEP.pas
+
+[View5]
+CustomEditViewType=TEditView
+Module=C:\ProDelphiBerlin\DesafioDelphi\src\model\uCEP.pas
+CursorX=38
 CursorY=1
 TopLine=1
 LeftCol=1
 Elisions=
 Bookmarks=
-EditViewName=Borland.FormDesignerView
+EditViewName=C:\ProDelphiBerlin\DesafioDelphi\src\model\uCEP.pas
 
 [UndockedDesigner]
 Count=0
@@ -136,7 +168,8 @@ Dockable=1
 StayOnTop=0
 
 [Breakpoints]
-Count=0
+Count=1
+Breakpoint0='C:\ProDelphiBerlin\DesafioDelphi\src\service\uConsultaCEP.pas',39,'',0,1,'',1,0,0,'',1,'','','',0,''
 
 [EmbarcaderoWin32Debugger_AddressBreakpoints]
 Count=0
@@ -198,18 +231,18 @@ StayOnTop=0
 [MessageView]
 PercentageSizes=1
 Create=1
-Visible=0
+Visible=1
 Docked=1
 State=0
 Left=0
-Top=0
-Width=2774
-Height=1397
+Top=18
+Width=10000
+Height=838
 MaxLeft=-1
 MaxTop=-1
-ClientWidth=2774
-ClientHeight=1397
-TBDockHeight=1397
+ClientWidth=10000
+ClientHeight=838
+TBDockHeight=838
 LRDockWidth=2774
 Dockable=1
 StayOnTop=0
@@ -280,12 +313,12 @@ State=0
 Left=0
 Top=295
 Width=1898
-Height=3994
+Height=2821
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=1898
-ClientHeight=3994
-TBDockHeight=8226
+ClientHeight=2821
+TBDockHeight=7863
 LRDockWidth=1898
 Dockable=1
 StayOnTop=0
@@ -293,8 +326,8 @@ SplitPos=111
 
 [PropInspDesignerSelection]
 ArrangeBy=Name
-SelectedItem=VendorLib,
-ExpandedItems=ConnectedStoredUsage=0,FetchOptions=0,FormatOptions=0,"LiveBindings Designer=0",Params=0
+SelectedItem=Align,CustomHint
+ExpandedItems=ConnectedStoredUsage=0,FetchOptions=0,FormatOptions=0,"LiveBindings Designer=0",Params=0,ActiveStoredUsage=0,FieldOptions=0,FilterChanges=0,FilterOptions=0,ResourceOptions=0,Margins=1,StyleElements=0,Touch=0,Constraints=0,Attributes=0,LiveBindings=0,Font=0,LookAndFeel=0,Options=0,Properties=1,Properties.CustomButtons=0,Properties.Options=0,Properties.TabSlants=1,Properties.TabSlants.Positions=0,Anchors=1,BevelEdges=0,DittoAttributes=0,EditControlOptions=0,IniAttributes=0,KeyOptions=0,LineColors=0,MemoAttributes=0,ExportOptions=0,MultiSelectOptions=0,PaintOptions=0,DataSource=0,Padding=0,BorderIcons=0
 
 [ClassBrowserTool]
 PercentageSizes=1
@@ -782,12 +815,12 @@ Docked=1
 State=0
 Left=0
 Top=0
-Width=1898
-Height=3268
+Width=920
+Height=7514
 MaxLeft=-1
 MaxTop=-1
-ClientWidth=1898
-ClientHeight=3268
+ClientWidth=920
+ClientHeight=7514
 TBDockHeight=3673
 LRDockWidth=1898
 Dockable=1
@@ -871,8 +904,8 @@ Create=1
 Visible=0
 Docked=1
 State=0
-Left=8
-Top=8
+Left=1370
+Top=135
 Width=2000
 Height=8226
 MaxLeft=-1
@@ -903,7 +936,7 @@ MaxLeft=-1
 MaxTop=-1
 ClientWidth=1898
 ClientHeight=3561
-TBDockHeight=8226
+TBDockHeight=7863
 LRDockWidth=1898
 Dockable=1
 StayOnTop=0
@@ -919,8 +952,8 @@ Create=1
 Visible=0
 Docked=1
 State=0
-Left=8
-Top=8
+Left=1370
+Top=135
 Width=2000
 Height=8226
 MaxLeft=-1
