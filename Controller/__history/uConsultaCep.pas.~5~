@@ -1,0 +1,40 @@
+unit uConsultaCep;
+
+interface
+
+uses
+System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
+FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.Layouts,
+FMX.StdCtrls, IdHTTP;
+
+type
+TConsultaCEPForm = class(TForm)
+btnConsultar: TButton;
+lblResultado: TLabel;
+private
+procedure ConsultarCEP(const ACep: string);
+end;
+
+var
+ConsultaCEPForm: TConsultaCEPForm;
+
+implementation
+
+{$R *.fmx}
+
+procedure TConsultaCEPForm.ConsultarCEP(const ACep: string);
+begin
+var IdHTTP := TIdHTTP.Create(nil);
+  try
+    var Response := IdHTTP.Get('https://viacep.com.br/ws/' + ACep + '/json/');
+    if Response.IsEmpty then
+
+    else
+
+  except
+    lblResultado.Text := 'Erro na consulta de CEP';
+  end;
+  IdHTTP.Free;
+end;
+
+end.

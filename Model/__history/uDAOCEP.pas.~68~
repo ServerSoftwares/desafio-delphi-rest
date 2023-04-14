@@ -1,0 +1,264 @@
+unit uDAOCEP;
+
+interface
+
+uses
+  System.SysUtils, System.Classes, Data.DB, Data.Win.ADODB, ADODBXP, Data.Win.ADOConEd,
+  FMX.Clipboard, Vcl.Clipbrd, FMX.Clipboard.Win, Winapi.ActiveX, system.Threading, uRetornoCep;
+
+type
+  TConsultaCEP = class
+    CEP: string;
+    Logradouro: string;
+    Bairro: string;
+    Cidade: string;
+    Estado: string;
+  end;
+
+  ECEPConnectionException = class(Exception);
+
+  TCEPCustomDAO = class(TDataModule)
+  private
+    FConnected: Boolean;
+  class var
+    stringconn: string;
+  public
+  { Public declarations }
+    FstringConn: string;
+    FConnection: TADOConnection;
+    class function ListarUfs: TStringList; static;
+    class function ListarCEP(UF: string = ''; CEPInicio: string = ''; CEPFim: string = ''): TStringList;
+    function GetConnected: Boolean;
+    constructor Create(const AConnectionString: string; out AErrorMessage: string; out AConnected: Boolean);
+    class function Consultar(const ACep: string): TRetornoCEP;
+    function GetTableNames(const connection: TADOConnection; const database: string): TArray<string>;
+    class procedure Inserir(const ACep: string; const ALogradouro: string; const ABairro: string;
+                            const ACidade: string; const AEstado: string);
+    class procedure Atualizar(const ACep: string; const ALogradouro: string; const ABairro: string;
+                            const ACidade: string; const AEstado: string);
+    property Connected: Boolean read FConnected;
+  end;
+
+implementation
+
+{%CLASSGROUP 'System.Classes.TPersistent'}
+
+constructor TCEPCustomDAO.Create(const AConnectionString: string; out AErrorMessage: string;
+  out AConnected: Boolean);
+begin
+  AConnected := False;
+  CoInitialize(nil);
+  FConnection := TADOConnection.Create(nil);
+  try
+    FConnection.ConnectionString := AConnectionString;
+    stringConn:= AConnectionString;
+    FConnection.LoginPrompt := False;
+    try
+      FConnection.Connected := true;
+      FConnected := True;
+      AConnected:= true;
+    except
+      on E: Exception do
+      begin
+        AErrorMessage := E.Message;
+        raise;
+      end;
+    end;
+  finally
+    if not FConnected then
+    begin
+      AConnected:= false;
+      FConnection.Close;
+      FConnection.Free;
+      CoUninitialize;
+    end;
+  end;
+end;
+
+class procedure TCEPCustomDAO.Atualizar(const ACep, ALogradouro, ABairro,
+  ACidade, AEstado: string);
+var
+  Query: TADOQuery;
+  ErrorMessage: string;
+  Connected: Boolean;
+begin
+  Query := TADOQuery.Create(nil);
+  try
+    Query.Connection := TCEPCustomDAO.Create(stringconn,ErrorMessage, Connected).FConnection as TADOConnection;
+    Query.SQL.Text := 'SELECT * FROM public.tbcep WHERE cep= ' + QuotedStr(ACep);
+    query.Open;
+    if not query.IsEmpty then
+    begin
+      Query.SQL.Text := 'UPDATE tbCEP SET Logradouro = :Logradouro, Bairro = :Bairro, Cidade = :Cidade, Estado = :Estado ' +
+                  'WHERE CEP = :CEP';
+      Query.Parameters.ParamByName('CEP').Value := ACep;
+      Query.Parameters.ParamByName('Logradouro').Value := ALogradouro;
+      Query.Parameters.ParamByName('Bairro').Value := ABairro;
+      Query.Parameters.ParamByName('Cidade').Value := ACidade;
+      Query.Parameters.ParamByName('Estado').Value := AEstado;
+      Query.ExecSQL;
+    end else
+    begin
+      Query.SQL.Text := 'INSERT INTO tbCEP (CEP, Logradouro, Bairro, Cidade, Estado) ' +
+                        'VALUES (:CEP, :Logradouro, :Bairro, :Cidade, :Estado)';
+      Query.Parameters.ParamByName('CEP').Value := ACep;
+      Query.Parameters.ParamByName('Logradouro').Value := ALogradouro;
+      Query.Parameters.ParamByName('Bairro').Value := ABairro;
+      Query.Parameters.ParamByName('Cidade').Value := ACidade;
+      Query.Parameters.ParamByName('Estado').Value := AEstado;
+      Query.ExecSQL;
+      end;
+  finally
+    Query.Free;
+  end;
+end;
+
+class function TCEPCustomDAO.Consultar(const ACep: string): TRetornoCEP;
+var
+  Query: TADOQuery;
+  ErrorMessage: string;
+  Connected: Boolean;
+begin
+  Result := TRetornoCEP.Create;
+  Result.CEP := '';
+  Result.Logradouro := '';
+  Result.Bairro := '';
+  Result.Cidade := '';
+  Result.Estado := '';
+  Query := TADOQuery.Create(nil);
+  Query.Connection := TCEPCustomDAO.Create(stringconn,ErrorMessage, Connected).FConnection as TADOConnection;
+
+  try
+    Query.SQL.Text := 'SELECT * FROM public.tbcep WHERE cep= ' + QuotedStr(ACep);
+    query.Open;
+    if not query.IsEmpty then
+    begin
+      REsult.Consulta:= 'OK';
+      Result.CEP := query.FieldByName('CEP').AsString;
+      Result.Logradouro := query.FieldByName('Logradouro').AsString;
+      Result.Bairro := query.FieldByName('Bairro').AsString;
+      Result.Cidade := query.FieldByName('Cidade').AsString;
+      Result.Estado := query.FieldByName('Estado').AsString;
+      Result.Service:= 'Banco de Dados';
+    end;
+  finally
+    query.Free;
+  end;
+end;
+
+
+function TCEPCustomDAO.GetConnected: Boolean;
+begin
+  Result := FConnected;
+end;
+
+function TCEPCustomDAO.GetTableNames(const connection: TADOConnection; const database: string): TArray<string>;
+var
+  tables: TADOTable;
+  tableNames: TArray<string>;
+  i: Integer;
+begin
+    tables := TADOTable.Create(nil);
+    try
+      tables.Connection := connection;
+      tables.TableName := 'INFORMATION_SCHEMA.TABLES';
+      tables.Filter := 'TABLE_TYPE = ''BASE TABLE'' AND DATABASE = ''' + database + ' AND TABLE_TYPE = ''TABLE''';
+      tables.Open;
+      SetLength(tableNames, tables.RecordCount);
+      tables.First;
+      i := 0;
+      while not tables.Eof do
+      begin
+        tableNames[i] := tables.FieldByName('TABLE_NAME').AsString;
+        Inc(i);
+        tables.Next;
+      end;
+    finally
+      tables.Free;
+    end;
+  Result := tableNames;
+end;
+
+class procedure TCEPCustomDAO.Inserir(const ACep, ALogradouro, ABairro, ACidade, AEstado: string);
+var
+  Query: TADOQuery;
+  ErrorMessage: string;
+  Connected: Boolean;
+begin
+  Query := TADOQuery.Create(nil);
+  try
+    Query.Connection := TCEPCustomDAO.Create(stringconn,ErrorMessage, Connected).FConnection as TADOConnection;
+    Query.SQL.Text := 'INSERT INTO tbCEP (CEP, Logradouro, Bairro, Cidade, Estado) ' +
+                      'VALUES (:CEP, :Logradouro, :Bairro, :Cidade, :Estado)';
+    Query.Parameters.ParamByName('CEP').Value := ACep;
+    Query.Parameters.ParamByName('Logradouro').Value := ALogradouro;
+    Query.Parameters.ParamByName('Bairro').Value := ABairro;
+    Query.Parameters.ParamByName('Cidade').Value := ACidade;
+    Query.Parameters.ParamByName('Estado').Value := AEstado;
+    Query.ExecSQL;
+  finally
+    Query.Free;
+  end;
+end;
+
+class function TCEPCustomDAO.ListarCEP(UF: string = ''; CEPInicio: string = ''; CEPFim: string = ''): TStringList;
+var
+  Query: TADOQuery;
+  ErrorMessage: string;
+  Connected: Boolean;
+  SQL: string;
+begin
+  Query := TADOQuery.Create(nil);
+  Result := TStringList.Create;
+  try
+    Query.Connection := TCEPCustomDAO.Create(stringconn,ErrorMessage, Connected).FConnection as TADOConnection;;
+
+    SQL := 'SELECT * FROM tbcep WHERE 1=1';
+
+    if UF <> '' then
+      SQL := SQL + ' AND estado = ''' + UF + '''';
+
+    if CEPInicio <> '' then
+      SQL := SQL + ' AND cep >= ''' + CEPInicio + '''';
+
+    if CEPFim <> '' then
+      SQL := SQL + ' AND cep <= ''' + CEPFim + '''';
+
+    Query.SQL.Text := SQL;
+    Query.Open;
+    while not Query.Eof do
+    begin
+      Result.Add(Query.FieldByName('cep').AsString +','+
+                 Query.FieldByName('logradouro').AsString +','+
+                 Query.FieldByName('bairro').AsString +','+
+                 Query.FieldByName('cidade').AsString +','+
+                 Query.FieldByName('estado').AsString);
+      Query.Next;
+    end;
+  finally
+    Query.Free;
+  end;
+end;
+
+class function TCEPCustomDAO.ListarUfs: TStringList;
+var
+  Query: TADOQuery;
+  ErrorMessage: string;
+  Connected: Boolean;
+begin
+  Query := TADOQuery.Create(nil);
+  Result := TStringList.Create;
+  try
+    Query.Connection := TCEPCustomDAO.Create(stringconn,ErrorMessage, Connected).FConnection as TADOConnection;;
+    Query.SQL.Text := 'SELECT estado FROM tbcep group by estado';
+    Query.Open;
+    while not Query.Eof do
+    begin
+      Result.Add(Query.FieldByName('estado').AsString);
+      Query.Next;
+    end;
+  finally
+    Query.Free;
+  end;
+end;
+end.

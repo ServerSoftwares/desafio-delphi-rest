@@ -1,0 +1,39 @@
+unit uConsultaCEP;
+
+interface
+
+type
+  TConsultaCEP = class
+  private
+    FCEP: string;
+    procedure SetCEP(const Value: string);
+  public
+    constructor Create(const ACep: string);
+    function Consultar: Boolean;
+    property CEP: string read FCEP write SetCEP;
+    // outras propriedades e métodos da classe
+  end;
+
+implementation
+
+{ TConsultaCEP }
+
+constructor TConsultaCEP.Create(const ACep: string);
+begin
+  inherited Create;
+  FCEP := ACep;
+end;
+
+function TConsultaCEP.Consultar: Boolean;
+begin
+  // implementação da lógica de consulta do CEP
+  Result := True;
+end;
+
+procedure TConsultaCEP.SetCEP(const Value: string);
+begin
+  FCEP := Value;
+end;
+
+end.
+

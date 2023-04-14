@@ -1,0 +1,57 @@
+unit UCEPDAO;
+
+interface
+
+uses
+  System.Classes, System.SysUtils, System.JSON, REST.Types, REST.Client, Data.DB,
+  Datasnap.DBClient, UCEPDAO;
+
+type
+  TConsultaCEP = class
+  private
+    FCEP: string;
+    FRetornoCEP: TRetornoCEP;
+  public
+    constructor Create(CEP: string);
+    function ConsultarCEP: TRetornoCEP;
+  end;
+
+implementation
+
+constructor TConsultaCEP.Create(CEP: string);
+begin
+  FCEP := CEP;
+end;
+
+function TConsultaCEP.ConsultarCEP: TRetornoCEP;
+var
+  CEPDAO: TCEPDAO;
+begin
+  CEPDAO := TCEPDAO.Create;
+  try
+    FRetornoCEP := CEPDAO.ObterCEP(FCEP);
+    if not Assigned(FRetornoCEP) then
+    begin
+      // CEP não encontrado no banco de dados, realizar consulta na API
+      // Código para acesso a API de consulta de CEP
+
+      // Popula o objeto FRetornoCEP com os dados da API
+      FRetornoCEP := TRetornoCEP.Create;
+      FRetornoCEP.CEP := '12345678';
+      FRetornoCEP.Logradouro := 'Rua Exemplo';
+      FRetornoCEP.Bairro := 'Bairro Exemplo';
+      FRetornoCEP.Cidade := 'Cidade Exemplo';
+      FRetornoCEP.UF := 'UF';
+
+      // Salva o CEP no banco de dados
+      CEPDAO.SalvarCEP(FRetornoCEP);
+    end;
+  finally
+    FreeAndNil(CEPDAO);
+  end;
+
+  Result := FRetornoCEP;
+end;
+
+end.
+

@@ -1,0 +1,64 @@
+unit uLog;
+
+interface
+
+uses
+  System.SysUtils, System.IOUtils, system.Classes, fmx.Forms;
+
+type
+  TLogger = class
+  private
+    class function GetLogFilePath: string; static;
+  public
+    class procedure LogError(const ErrorMessage: string); static;
+  end;
+
+implementation
+
+class function TLogger.GetLogFilePath: string;
+var
+  LogDir, LogFile: string;
+begin
+  LogDir := TPath.Combine(ExtractFilePath(ParamStr(0)), 'logs');
+  if not TDirectory.Exists(LogDir) then
+    TDirectory.CreateDirectory(LogDir);
+
+  LogFile := TPath.Combine(LogDir, 'log_' + FormatDateTime('yyyy_mm_dd', Now) + '.txt');
+
+  if not TFile.Exists(LogFile) then
+    TFile.Create(LogFile);
+
+  Result := LogFile;
+end;
+
+
+class procedure TLogger.LogError(const ErrorMessage: string);
+var
+  LogFile: TStringList;
+  LogFilePath: string;
+begin
+  LogFilePath := GetLogFilePath;
+  if not FileExists(LogFilePath) then
+  begin
+    LogFile := TStringList.Create;
+    try
+      LogFile.Add('Log criado em ' + FormatDateTime('dd/mm/yyyy hh:nn:ss', Now));
+      LogFile.SaveToFile(LogFilePath);
+    finally
+      LogFile.Free;
+    end;
+  end;
+
+  LogFile := TStringList.Create;
+  try
+    LogFile.LoadFromFile(LogFilePath);
+    LogFile.Add(FormatDateTime('hh:nn:ss', Now) + ' ' + ErrorMessage);
+    LogFile.SaveToFile(LogFilePath);
+  finally
+    LogFile.Free;
+  end;
+end;
+
+
+end.
+

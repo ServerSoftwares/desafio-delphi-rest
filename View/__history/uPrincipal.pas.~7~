@@ -1,0 +1,288 @@
+unit uPrincipal;
+
+interface
+
+uses
+  System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
+  FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.Objects,
+  FMX.Controls.Presentation, FMX.StdCtrls, FMX.Edit, FMX.Layouts, FMX.TabControl,
+  uConsultaCEP, Data.DB, Data.Win.ADODB, uDAOCEP, System.IniFiles;
+
+type
+  TfrmPrincipal = class(TForm)
+    rctFooter: TRectangle;
+    rctTop: TRectangle;
+    lblGsSmart: TLabel;
+    tbcPrincipal: TTabControl;
+    tbiConsulta: TTabItem;
+    tbiConfig: TTabItem;
+    tbiEditDados: TTabItem;
+    lytRetorno: TLayout;
+    stylbk1: TStyleBook;
+    lytconsulta: TLayout;
+    lytBusca: TLayout;
+    recBusca: TRectangle;
+    rectBusca: TRectangle;
+    lblBusca: TLabel;
+    edtCEP: TEdit;
+    lblCEP: TLabel;
+    lblEstado: TLabel;
+    lblCidade: TLabel;
+    lblBairro: TLabel;
+    lblRua: TLabel;
+    lblServico: TLabel;
+    tbcConfig: TTabControl;
+    tbiDB: TTabItem;
+    tbiGeral: TTabItem;
+    lytDBC: TLayout;
+    edtDatabase: TEdit;
+    lblDatabase: TLabel;
+    lblUser: TLabel;
+    lblSenha: TLabel;
+    lblIP: TLabel;
+    lblPorta: TLabel;
+    recConectar: TRectangle;
+    lblConectar: TLabel;
+    edtIP: TEdit;
+    edtPorta: TEdit;
+    edtUser: TEdit;
+    edtSenha: TEdit;
+    conn: TADOConnection;
+    procedure rectBuscaClick(Sender: TObject);
+    procedure ThreadTerminate(Sender: TObject);
+    procedure edtCEPTyping(Sender: TObject);
+    function formataCEP(obj: TObject; cep: string):string;
+    function SomenteNumero(str : string) : string;
+    function Mask(Mascara, Str : string) : string;
+    procedure edtCEPKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char;
+      Shift: TShiftState);
+    procedure edtCEPEnter(Sender: TObject);
+    procedure limparCampos;
+    procedure ConectaBanco;
+    procedure FormCreate(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure recConectarClick(Sender: TObject);
+  private
+    procedure SaveConnectionSettings;
+    procedure LoadConnectionSettings;
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frmPrincipal: TfrmPrincipal;
+
+implementation
+
+uses
+  uRetornoCep;
+
+{$R *.fmx}
+
+function TfrmPrincipal.Mask(Mascara, Str : string) : string;
+var
+    x, p : integer;
+begin
+  p := 0;
+  Result := '';
+
+  if Str.IsEmpty then
+      exit;
+
+  for x := 0 to Length(Mascara) - 1 do
+  begin
+    if Mascara.Chars[x] = '#' then
+    begin
+        Result := Result + Str.Chars[p];
+        inc(p);
+    end
+    else
+        Result := Result + Mascara.Chars[x];
+
+    if p = Length(Str) then
+        break;
+  end;
+end;
+
+
+function TfrmPrincipal.SomenteNumero(str : string) : string;
+var
+    x : integer;
+begin
+  Result := '';
+  for x := 0 to Length(str) - 1 do
+    if (str.Chars[x] In ['0'..'9']) then
+    Result := Result + str.Chars[x];
+end;
+
+procedure TfrmPrincipal.ConectaBanco;
+var
+  daoCEP: TCEPCustomDAO;
+  tabelaExistente: Boolean;
+  tableNames: TArray<string>;
+  tableName: string;
+begin
+  // Criando objeto de conexão
+  daoCEP := TCEPCustomDAO.Create('DRIVER={PostgreSQL};Server='+edtIP.Text+';Port='+edtPorta.Text+';'+
+                                  'User ID='+edtUser.Text+';'+'Password='+edtSenha.Text+';Database='+
+                                  edtDatabase.Text+';Pooling=true;');
+  try
+    // Verificando se a tabela existe
+    tabelaExistente := False;
+    tableNames := daoCEP.GetTableNames(daoCEP.FConnection);
+    for var i := 0 to Length(tableNames) - 1 do
+    begin
+      tableName := tableNames[i];
+      if tableName = 'tbCEP' then
+      begin
+        tabelaExistente := True;
+        Break;
+      end;
+    end;
+
+    // Se a tabela não existir, criamos ela
+    if not tabelaExistente then
+    begin
+      daoCEP.FConnection.Execute('CREATE TABLE tbCEP (CEP varchar(10), Logradouro varchar(100), ' +
+                      'Bairro varchar(50), Cidade varchar(50), Estado varchar(2))');
+      ShowMessage('Tabela tbCEP criada com sucesso!');
+    end;
+  finally
+    // Liberando memória
+    daoCEP.Free;
+  end;
+end;
+
+procedure TfrmPrincipal.edtCEPEnter(Sender: TObject);
+begin
+  limparCampos;
+end;
+
+procedure TfrmPrincipal.edtCEPKeyDown(Sender: TObject; var Key: Word;
+  var KeyChar: Char; Shift: TShiftState);
+begin
+  if Key = vkReturn then
+  begin
+    rectBuscaClick(self);
+  end;
+end;
+
+procedure TfrmPrincipal.edtCEPTyping(Sender: TObject);
+begin
+  formataCEP(edtCEP, edtCEP.Text);
+end;
+
+function TfrmPrincipal.formataCEP(obj: TObject; cep: string): string;
+begin
+  cep := Mask('##.###-###', SomenteNumero(cep));
+  if obj is TEdit then
+  begin
+    TEdit(obj).Text := cep;
+    TEdit(obj).CaretPosition := TEdit(obj).Text.Length;
+  end;
+end;
+
+procedure TfrmPrincipal.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  SaveConnectionSettings;
+end;
+
+procedure TfrmPrincipal.FormCreate(Sender: TObject);
+begin
+  LoadConnectionSettings;
+end;
+
+procedure TfrmPrincipal.limparCampos;
+begin
+  edtCEP.Text    := '';
+  lblCEP.Text    := 'CEP';
+  lblEstado.Text := 'ESTADO';
+  lblCidade.Text := 'CIDADE';
+  lblBairro.Text :='BAIRRO';
+  lblRua.Text    := 'RUA';
+  lblServico.Text:= 'SERVIÇO';
+end;
+
+procedure TfrmPrincipal.recConectarClick(Sender: TObject);
+begin
+  ConectaBanco;
+end;
+
+procedure TfrmPrincipal.rectBuscaClick(Sender: TObject);
+var
+  RetornoCEP: TRetornoCEP;
+  t: TThread;
+begin
+  t:= t.CreateAnonymousThread(procedure
+  begin
+    RetornoCEP := TConsultaCEP.Consultar(edtCep.Text);
+
+    if RetornoCEP.Consulta = 'OK' then
+    begin
+      t.Synchronize(t, procedure
+      begin
+        lblCEP.Text     := 'CEP: '   + RetornoCEP.CEP;
+        lblEstado.Text  := 'ESTADO: '+ RetornoCEP.Estado;
+        lblCidade.Text  := 'CIDADE: '+ RetornoCEP.Cidade;
+        lblBairro.Text  := 'BAIRRO: '+ RetornoCEP.Bairro;
+        lblRua.Text     := 'RUA: '   + RetornoCEP.Logradouro;
+        lblServico.Text := 'SERVIÇO: ' + RetornoCEP.Service;
+        ShowMessage('Busca concluída com sucesso!');
+      end);
+    end else
+    begin
+      t.Synchronize(t, procedure
+      begin
+        ShowMessage(RetornoCEP.Consulta);
+      end);
+    end;
+  end);
+  t.FreeOnTerminate := true;
+  t.OnTerminate := ThreadTerminate;
+  t.Start;
+end;
+
+procedure TfrmPrincipal.ThreadTerminate(Sender: TObject);
+var
+  erro : string;
+begin
+  if Assigned(TThread(Sender).FatalException) then
+  begin
+    ShowMessage('Erro na consulta' + Exception(TThread(Sender).FatalException).Message);
+    exit;
+  end;
+end;
+procedure TfrmPrincipal.SaveConnectionSettings;
+var
+  iniFile: TIniFile;
+begin
+  iniFile := TIniFile.Create('config.ini');
+  try
+    iniFile.WriteString('Connection', 'Server', edtIP.Text);
+    iniFile.WriteInteger('Connection', 'Port', StrToIntDef(edtPorta.Text, 0));
+    iniFile.WriteString('Connection', 'Database', edtDatabase.Text);
+    iniFile.WriteString('Connection', 'User', edtUser.Text);
+    iniFile.WriteString('Connection', 'Password', edtSenha.Text);
+  finally
+    iniFile.Free;
+  end;
+end;
+
+procedure TfrmPrincipal.LoadConnectionSettings;
+var
+  iniFile: TIniFile;
+begin
+  iniFile := TIniFile.Create('config.ini');
+  try
+    edtIP.Text := iniFile.ReadString('Connection', 'Server', '');
+    edtPorta.Text := IntToStr(iniFile.ReadInteger('Connection', 'Port', 0));
+    edtDatabase.Text := iniFile.ReadString('Connection', 'Database', '');
+    edtUser.Text := iniFile.ReadString('Connection', 'User', '');
+    edtSenha.Text := iniFile.ReadString('Connection', 'Password', '');
+  finally
+    iniFile.Free;
+  end;
+end;
+
+end.

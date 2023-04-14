@@ -1,0 +1,79 @@
+unit uConsultaCEP;
+
+interface
+
+uses
+  System.Classes, IdHTTP, system.JSON;
+
+type
+  TRetornoCEP = class
+  private
+    FLogradouro: string;
+    FBairro: string;
+    FCidade: string;
+    FEstado: string;
+    FCEP: string;
+  public
+    property Logradouro: string read FLogradouro write FLogradouro;
+    property Bairro: string read FBairro write FBairro;
+    property Cidade: string read FCidade write FCidade;
+    property Estado: string read FEstado write FEstado;
+    property CEP: string read FCEP write FCEP;
+  end;
+
+  TConsultaCEP = class
+  public
+    class function Consultar(const CEP: string): TRetornoCEP;
+  end;
+
+implementation
+
+class function TConsultaCEP.Consultar(const CEP: string): TRetornoCEP;
+var
+  HTTP: TIdHTTP;
+  JSON: TStringStream;
+  URL: string;
+  Response: string;
+  JSONValue: TJSONValue;
+begin
+  // Criar objeto TIdHTTP para fazer a requisição HTTP
+  HTTP := TIdHTTP.Create(nil);
+  try
+    // Configurar o objeto TIdHTTP
+    HTTP.HandleRedirects := True;
+
+    // Montar a URL de consulta utilizando o CEP passado como parâmetro
+    URL := 'https://viacep.com.br/ws/' + CEP + '/json/';
+
+    // Fazer a requisição HTTP na URL de consulta
+    JSON := TStringStream.Create('');
+    try
+      HTTP.Get(URL, JSON);
+      Response := JSON.DataString;
+    finally
+      JSON.Free;
+    end;
+
+    // Converter a resposta da requisição para um objeto TJSONObject
+    JSONValue := TJSONObject.ParseJSONValue(Response);
+
+    // Preencher um objeto TRetornoCEP com os dados da resposta
+    Result := TRetornoCEP.Create;
+    try
+      Result.CEP := CEP;
+      Result.Logradouro := JSONValue.GetValue<string>('logradouro');
+      Result.Bairro := JSONValue.GetValue<string>('bairro');
+      Result.Cidade := JSONValue.GetValue<string>('localidade');
+      Result.Estado := JSONValue.GetValue<string>('uf');
+    except
+      Result.Free;
+      raise;
+    end;
+  finally
+    HTTP.Free;
+  end;
+end;
+
+
+end.
+

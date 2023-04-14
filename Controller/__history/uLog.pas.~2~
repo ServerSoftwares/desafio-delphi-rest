@@ -1,0 +1,56 @@
+unit uLog;
+
+interface
+
+uses
+  System.SysUtils;
+
+type
+  TAppLogger = class
+  private
+    FLogFilePath: string;
+    procedure AppendTextToFile(const AText: string);
+  public
+    constructor Create;
+    procedure LogError(const AErrorMessage: string);
+  end;
+
+implementation
+
+constructor TAppLogger.Create;
+var
+  LogDir: string;
+begin
+  inherited;
+  LogDir := ExtractFilePath(ParamStr(0)) + 'Logs\';
+  if not DirectoryExists(LogDir) then
+    ForceDirectories(LogDir);
+  FLogFilePath := LogDir + FormatDateTime('yyyy-mm-dd', Now) + '.txt';
+end;
+
+procedure TAppLogger.AppendTextToFile(const AText: string);
+var
+  LogFile: TextFile;
+begin
+  AssignFile(LogFile, FLogFilePath);
+  if FileExists(FLogFilePath) then
+    Append(LogFile)
+  else
+    Rewrite(LogFile);
+  try
+    Writeln(LogFile, AText);
+  finally
+    CloseFile(LogFile);
+  end;
+end;
+
+procedure TAppLogger.LogError(const AErrorMessage: string);
+var
+  Text: string;
+begin
+  Text := Format('[%s] Error: %s', [DateTimeToStr(Now), AErrorMessage]);
+  AppendTextToFile(Text);
+end;
+
+end.
+
