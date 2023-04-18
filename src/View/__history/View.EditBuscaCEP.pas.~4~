@@ -1,0 +1,34 @@
+unit View.EditBuscaCEP;
+
+interface
+
+uses
+  System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants, 
+  FMX.Types, FMX.Graphics, FMX.Controls, FMX.Forms, FMX.Dialogs, FMX.StdCtrls, FMX.Objects, FMX.Controls.Presentation,
+  FMX.Edit, FMX.Layouts, FMX.Effects;
+
+type
+  TfrEditBuscaCEP = class(TFrame)
+    recBackgrounEdit: TRectangle;
+    layMain: TLayout;
+    edtCEP: TEdit;
+    pthSearch: TPath;
+    shEditCEP: TShadowEffect;
+    procedure recBackgrounEditMouseMove(Sender: TObject; Shift: TShiftState; X, Y: Single);
+    procedure recBackgrounEditMouseLeave(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+implementation
+
+{$R *.fmx}
+
+procedure TfrEditBuscaCEP.recBackgrounEditMouseMove(Sender: TObject; Shift: TShiftState; X, Y: Single);
+begin
+  shEditCEP.Enabled := edtCEP.IsFocused;
+end;
+
+end.

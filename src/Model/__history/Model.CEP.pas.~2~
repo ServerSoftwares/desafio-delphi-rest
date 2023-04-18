@@ -1,0 +1,73 @@
+unit Model.CEP;
+
+interface
+
+uses
+  Model.CEP.Interfaces;
+
+type
+  TCEP = class(TInterfacedObject, ICEP)
+  Private
+    FBairro: String;
+    FServico: String;
+    FCEP: String;
+    FCidade: String;
+    FEstado: String;
+    FRua: String;
+    function GetBairro: String;
+    function GetCEP: String;
+    function GetCidade: String;
+    function GetEstado: String;
+    function GetRua: String;
+    function GetServico: String;
+  Public
+    class function New: ICEP;
+
+    property CEP    : String read GetCEP      write FCEP;
+    property Estado : String read GetEstado   write FEstado;
+    property Cidade : String read GetCidade   write FCidade;
+    property Bairro : String read GetBairro   write FBairro;
+    property Rua    : String read GetRua      write FRua;
+    property Servico: String read GetServico  write FServico;
+  end;
+
+implementation
+
+{ TCEP }
+
+class function TCEP.New: ICEP;
+begin
+  Result := Self.Create;
+end;
+
+function TCEP.GetBairro: String;
+begin
+  Result := FBairro;
+end;
+
+function TCEP.GetCEP: String;
+begin
+  Result := FCEP;
+end;
+
+function TCEP.GetCidade: String;
+begin
+  Result := FCidade;
+end;
+
+function TCEP.GetEstado: String;
+begin
+  Result := FEstado;
+end;
+
+function TCEP.GetRua: String;
+begin
+  Result := FRua;
+end;
+
+function TCEP.GetServico: String;
+begin
+  Result := FServico;
+end;
+
+end.

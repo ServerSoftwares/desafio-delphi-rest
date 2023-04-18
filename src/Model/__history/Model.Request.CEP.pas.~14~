@@ -1,0 +1,67 @@
+unit Model.Request.CEP;
+
+interface
+
+uses
+  Model.Request.Interfaces,
+  System.JSON,
+  RESTRequest4D;
+
+type
+  TRequestCEP = class(TInterfacedObject, IRequestCEP)
+  private
+    FRequest : IRequest;
+
+    procedure Configurar(aCep: String);
+  public
+    constructor Create;
+    class function New: IRequestCEP;
+
+    function Consultar(aCep: String): TJSONObject;
+  end;
+
+  const cURLApiCep   = 'https://brasilapi.com.br/api/cep/v1/';
+  const cContentType = 'application/json';
+
+implementation
+
+uses
+  System.SysUtils;
+
+{ TRequestCEP }
+
+class function TRequestCEP.New: IRequestCEP;
+begin
+  Result := Self.Create;
+end;
+
+constructor TRequestCEP.Create;
+begin
+  FRequest := TRequest.New;
+end;
+
+procedure TRequestCEP.Configurar(aCep: String);
+begin
+  FRequest.BaseURL(cURLApiCep + aCep);
+  FRequest.ContentType(cContentType);
+end;
+
+function TRequestCEP.Consultar(aCep: String): TJSONObject;
+begin
+  try
+      Configurar(aCep);
+
+      with FRequest.Get do
+      begin
+          if StatusCode <> 200 then
+              raise Exception.Create('Não foi possível consultar o CEP desejado, por favor tente novamente em algums minutos.');
+
+          Result := TJSONObject(JSONValue);
+      end;
+
+  except on E: Exception do
+      raise Exception.Create(E.Message);
+  end;
+end;
+
+end.

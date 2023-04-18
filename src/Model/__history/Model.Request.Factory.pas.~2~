@@ -1,0 +1,25 @@
+unit Model.Request.Factory;
+
+interface
+
+uses
+  Model.Request.Interfaces;
+
+type
+  TFactorytRequest = class
+  private
+
+  public
+    class function NewCEP: IRequestCEP;
+  end;
+
+implementation
+
+{ TFactorytRequest }
+
+class function TFactorytRequest.NewCEP: IRequestCEP;
+begin
+  //
+end;
+
+end.
