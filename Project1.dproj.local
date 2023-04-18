@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2023/04/12 18:28:59.000.847,=C:\Users\danie\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2023/04/12 18:44:44.000.889,C:\Users\danie\OneDrive\Documentos\ProjetoCEP\Unit1.dfm=C:\Users\danie\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit1.dfm</Transaction>
+    <Transaction>2023/04/12 18:44:44.000.889,C:\Users\danie\OneDrive\Documentos\ProjetoCEP\Unit1.pas=C:\Users\danie\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2023/04/12 18:45:29.000.336,=C:\Users\danie\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit2.pas</Transaction>
+    <Transaction>2023/04/12 18:46:36.000.438,C:\Users\danie\OneDrive\Documentos\ProjetoCEP\Unit2.pas=C:\Users\danie\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit2.pas</Transaction>
+    <Transaction>2023/04/12 18:46:40.000.973,C:\Users\danie\OneDrive\Documentos\ProjetoCEP\Project1.dproj=C:\Users\danie\OneDrive\Documentos\Embarcadero\Studio\Projects\Project1.dproj</Transaction>
+    <Transaction>2023/04/16 14:03:59.000.460,=C:\Users\danie\OneDrive\Documentos\ProjetoCEP\Unit3.pas</Transaction>
+    <Transaction>2023/04/16 14:04:31.000.454,C:\Users\danie\OneDrive\Documentos\ProjetoCEP\Unit3.pas=C:\Users\danie\OneDrive\Documentos\ProjetoCEP\RetornoCEP.pas</Transaction>
+    <Transaction>2023/04/16 14:07:19.000.600,=C:\Users\danie\OneDrive\Documentos\ProjetoCEP\Unit3.pas</Transaction>
+    <Transaction>2023/04/16 14:07:31.000.343,C:\Users\danie\OneDrive\Documentos\ProjetoCEP\Unit3.pas=C:\Users\danie\OneDrive\Documentos\ProjetoCEP\UConsultaCEP.pas</Transaction>
+    <Transaction>2023/04/16 14:51:43.000.951,C:\Users\danie\OneDrive\Documentos\ProjetoCEP\Unit2.pas=</Transaction>
+    <Transaction>2023/04/17 17:24:03.000.631,=C:\Users\danie\OneDrive\Documentos\ProjetoCEP\Unit3.pas</Transaction>
+    <Transaction>2023/04/17 17:28:26.000.739,C:\Users\danie\OneDrive\Documentos\ProjetoCEP\dmdCEP.dfm=C:\Users\danie\OneDrive\Documentos\ProjetoCEP\Unit3.dfm</Transaction>
+    <Transaction>2023/04/17 17:28:26.000.739,C:\Users\danie\OneDrive\Documentos\ProjetoCEP\dmdCEP.pas=C:\Users\danie\OneDrive\Documentos\ProjetoCEP\Unit3.pas</Transaction>
+  </Transactions>
+</BorlandProject>
