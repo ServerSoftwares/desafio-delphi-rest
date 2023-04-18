@@ -1,0 +1,14 @@
+program SrConsultaCEP;
+
+uses
+  System.StartUpCopy,
+  FMX.Forms,
+  View.BuscarCEP in 'View\View.BuscarCEP.pas' {FrBuscarCEP};
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.CreateForm(TFrBuscarCEP, FrBuscarCEP);
+  Application.Run;
+end.

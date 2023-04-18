@@ -1,0 +1,146 @@
+object FrBuscarCEP: TFrBuscarCEP
+  Left = 0
+  Top = 0
+  ClientHeight = 410
+  ClientWidth = 596
+  Position = ScreenCenter
+  Quality = HighQuality
+  StyleBook = stylbk1
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  DesignerMasterStyle = 0
+  object layBackGround: TLayout
+    Align = Client
+    Size.Width = 596.000000000000000000
+    Size.Height = 410.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 0
+    object recBackGround: TRectangle
+      Align = Client
+      Fill.Color = xFFF9F9F9
+      Size.Width = 596.000000000000000000
+      Size.Height = 410.000000000000000000
+      Size.PlatformDefault = False
+      Stroke.Kind = None
+      XRadius = 10.000000000000000000
+      YRadius = 10.000000000000000000
+      object layConsult: TLayout
+        Align = Client
+        Margins.Top = 20.000000000000000000
+        Size.Width = 596.000000000000000000
+        Size.Height = 390.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 0
+        object layEditsConsult: TLayout
+          Align = MostTop
+          Margins.Top = 20.000000000000000000
+          Position.Y = 20.000000000000000000
+          Size.Width = 596.000000000000000000
+          Size.Height = 49.000000000000000000
+          Size.PlatformDefault = False
+          TabOrder = 0
+          inline frmBuscaCep: TfrEditBuscaCEP
+            Align = Left
+            Size.Width = 300.000000000000000000
+            Size.Height = 49.000000000000000000
+            Size.PlatformDefault = False
+            inherited layMain: TLayout
+              inherited recBackgrounEdit: TRectangle
+                inherited edtCEP: TEdit
+                  OnKeyDown = frmBuscaCepedtCEPKeyDown
+                end
+                inherited pthSearch: TPath
+                  OnClick = frmBuscaCeppthSearchClick
+                end
+              end
+            end
+          end
+        end
+        object recListView: TRectangle
+          Align = Center
+          Fill.Kind = None
+          Size.Width = 525.000000000000000000
+          Size.Height = 302.000000000000000000
+          Size.PlatformDefault = False
+          Stroke.Color = xFF3B3B3B
+          XRadius = 10.000000000000000000
+          YRadius = 10.000000000000000000
+          object lsDadosCEP: TListView
+            ItemAppearanceClassName = 'TDynamicAppearance'
+            ItemEditAppearanceClassName = 'TDynamicAppearance'
+            HeaderAppearanceClassName = 'TListHeaderObjects'
+            FooterAppearanceClassName = 'TListHeaderObjects'
+            Transparent = True
+            Align = Client
+            Size.Width = 525.000000000000000000
+            Size.Height = 302.000000000000000000
+            Size.PlatformDefault = False
+            TabOrder = 0
+            ItemAppearance.ItemHeight = 60
+            ItemAppearance.HeaderHeight = 1
+            ItemAppearance.FooterHeight = 1
+            ItemAppearanceObjects.ItemObjects.ObjectsCollection = <
+              item
+                AppearanceObjectName = 'Cep'
+                AppearanceClassName = 'TTextObjectAppearance'
+                Appearance.Font.Size = 13.000000000000000000
+                Appearance.Font.StyleExt = {00070000000000000004000000}
+                Appearance.TextAlign = Leading
+                Appearance.TextColor = xFF3B3B3B
+                Appearance.Width = 91.000000000000000000
+                Appearance.Height = 19.000000000000000000
+              end
+              item
+                AppearanceObjectName = 'Cidade'
+                AppearanceClassName = 'TTextObjectAppearance'
+                Appearance.Font.Size = 13.000000000000000000
+                Appearance.Font.StyleExt = {00070000000000000004000000}
+                Appearance.TextAlign = Trailing
+                Appearance.TextColor = xFF3B3B3B
+                Appearance.Width = 259.000000000000000000
+                Appearance.Height = 19.000000000000000000
+                Appearance.PlaceOffset.X = 246.000000000000000000
+              end
+              item
+                AppearanceObjectName = 'Rua'
+                AppearanceClassName = 'TTextObjectAppearance'
+                Appearance.Font.Size = 13.000000000000000000
+                Appearance.Font.StyleExt = {00070000000000000004000000}
+                Appearance.TextAlign = Leading
+                Appearance.TextColor = xFF3B3B3B
+                Appearance.Width = 490.000000000000000000
+                Appearance.Height = 19.000000000000000000
+                Appearance.PlaceOffset.X = 6.000000000000000000
+                Appearance.PlaceOffset.Y = 21.000000000000000000
+              end
+              item
+                AppearanceObjectName = 'Servico'
+                AppearanceClassName = 'TTextObjectAppearance'
+                Appearance.Font.Size = 13.000000000000000000
+                Appearance.Font.StyleExt = {00070000000000000004000000}
+                Appearance.TextColor = xFF3B3B3B
+                Appearance.Width = 504.000000000000000000
+                Appearance.Height = 18.000000000000000000
+                Appearance.PlaceOffset.Y = 41.000000000000000000
+                Appearance.Opacity = 0.600000023841857900
+              end>
+            ItemAppearanceObjects.ItemEditObjects.ObjectsCollection = <
+              item
+                AppearanceObjectName = 'Text1'
+                AppearanceClassName = 'TTextObjectAppearance'
+              end>
+            ItemAppearanceObjects.HeaderObjects.Text.Visible = False
+            ItemAppearanceObjects.FooterObjects.Text.Visible = False
+            StyleLookup = 'lsDadosCEPStyle1'
+          end
+        end
+      end
+    end
+  end
+  object stylbk1: TStyleBook
+    Styles = <
+      item
+      end>
+  end
+end

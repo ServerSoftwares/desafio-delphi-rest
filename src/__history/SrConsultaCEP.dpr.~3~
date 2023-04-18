@@ -1,0 +1,19 @@
+program SrConsultaCEP;
+
+uses
+  System.StartUpCopy,
+  FMX.Forms,
+  View.BuscarCEP in 'View\View.BuscarCEP.pas' {FrBuscarCEP},
+  Model.Request.Interfaces in 'Model\Model.Request.Interfaces.pas',
+  Model.Request.Factory in 'Model\Model.Request.Factory.pas',
+  Model.Request.CEP in 'Model\Model.Request.CEP.pas',
+  Model.Request in 'Model\Model.Request.pas',
+  View.EditBuscaCEP in 'View\View.EditBuscaCEP.pas' {frEditBuscaCEP: TFrame};
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.CreateForm(TFrBuscarCEP, FrBuscarCEP);
+  Application.Run;
+end.

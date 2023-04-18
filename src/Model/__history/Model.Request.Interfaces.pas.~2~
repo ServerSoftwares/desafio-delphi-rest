@@ -1,0 +1,23 @@
+unit Model.Request.Interfaces;
+
+interface
+
+uses JSON;
+
+type
+  IRequestCEP = interface
+    ['{0B4408E2-3ABD-45B4-BDDC-7445ADDA681B}']
+
+    function Consultar(aCep: String): TJSONObject;
+  end;
+
+  IRequest = interface
+    ['{C8C3411A-AB96-427C-AEAA-0FCFF3E23E34}']
+
+    function CEP: IRequestCEP;
+  end;
+
+
+implementation
+
+end.

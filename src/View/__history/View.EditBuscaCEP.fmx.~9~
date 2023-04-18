@@ -1,0 +1,79 @@
+object frEditBuscaCEP: TfrEditBuscaCEP
+  Size.Width = 236.000000000000000000
+  Size.Height = 32.000000000000000000
+  Size.PlatformDefault = False
+  object layMain: TLayout
+    Align = Center
+    Size.Width = 230.000000000000000000
+    Size.Height = 32.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 0
+    object recBackgrounEdit: TRectangle
+      Align = Client
+      Fill.Kind = None
+      Size.Width = 230.000000000000000000
+      Size.Height = 32.000000000000000000
+      Size.PlatformDefault = False
+      Stroke.Color = xFF3B3B3B
+      XRadius = 10.000000000000000000
+      YRadius = 10.000000000000000000
+      OnMouseMove = recBackgrounEditMouseMove
+      object edtCEP: TEdit
+        Touch.InteractiveGestures = [LongTap, DoubleTap]
+        Align = Left
+        StyleLookup = 'transparentedit'
+        TabOrder = 0
+        MaxLength = 10
+        FilterChar = '0123456789.-'
+        TextSettings.FontColor = xFF3B3B3B
+        Position.X = 5.000000000000000000
+        Margins.Left = 5.000000000000000000
+        Size.Width = 190.000000000000000000
+        Size.Height = 32.000000000000000000
+        Size.PlatformDefault = False
+        TextPrompt = 'Digite o cep...'
+        StyledSettings = [Family, Size, Style]
+        OnKeyDown = edtCEPKeyDown
+      end
+      object shEditCEP: TShadowEffect
+        Distance = 3.000000000000000000
+        Direction = 45.000000000000000000
+        Softness = 0.300000011920929000
+        Opacity = 0.600000023841857900
+        ShadowColor = claBlack
+        Enabled = False
+      end
+      object pthSearch: TPath
+        Align = Right
+        Data.Path = {
+          2600000000000000000018410000404002000000087051410000404002000000
+          00008041F11FBD4002000000000080410000184102000000000080418FC23141
+          020000005C8F7641A4704941020000003D0A674114AE5B4101000000295C6B41
+          00006041010000000000784100006041010000000000A4410000984101000000
+          000098410000A4410100000000006041000078410100000000006041295C6B41
+          0100000014AE5B413D0A674102000000A47049415C8F7641020000008FC23141
+          0000804102000000000018410000804102000000F11FBD400000804102000000
+          00004040087051410200000000004040000018410200000002004040EE1FBD40
+          02000000F31FBD40FEFF3F400200000001001841000040400000000000001841
+          0000A040020000000000E0400000A040020000000000A0400000E04002000000
+          0000A04000001841020000000000A04000004041020000000000E04000006041
+          0200000000001841000060410200000000004041000060410200000000006041
+          0000404102000000000060410000184102000000000060410000E04002000000
+          000040410000A04002000000000018410000A04003000000000018410000A040
+          03000000000018410000A040}
+        Fill.Color = xFF3B3B3B
+        Locked = True
+        Margins.Left = 5.000000000000000000
+        Margins.Top = 5.000000000000000000
+        Margins.Right = 5.000000000000000000
+        Margins.Bottom = 5.000000000000000000
+        Position.X = 200.000000000000000000
+        Position.Y = 5.000000000000000000
+        Size.Width = 25.000000000000000000
+        Size.Height = 22.000000000000000000
+        Size.PlatformDefault = False
+        Stroke.Kind = None
+      end
+    end
+  end
+end

@@ -1,0 +1,56 @@
+unit View.BuscarCEP;
+
+interface
+
+uses
+  System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
+  FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.Objects, FMX.Layouts, FMX.Effects,
+  FMX.Controls.Presentation, FMX.StdCtrls, FMX.Edit, FMX.ListView.Types, FMX.ListView.Appearances,
+  FMX.ListView.Adapters.Base, FMX.ListView, View.EditBuscaCEP,
+  System.Generics.Collections, Model.CEP.Interfaces;
+
+type
+  TFrBuscarCEP = class(TForm)
+    layBackGround: TLayout;
+    recBackGround: TRectangle;
+    layConsult: TLayout;
+    layEditsConsult: TLayout;
+    recListView: TRectangle;
+    lsDadosCEP: TListView;
+    frmBuscaCep: TfrEditBuscaCEP;
+    procedure frmBuscaCepClick(Sender: TObject);
+  private
+    { Private declarations }
+
+    procedure PopularListView(aListaCeps: TList<ICEP>);
+  public
+    { Public declarations }
+  end;
+
+var
+  FrBuscarCEP: TFrBuscarCEP;
+
+implementation
+
+uses
+  Controller.CEP;
+
+{$R *.fmx}
+
+procedure TFrBuscarCEP.frmBuscaCepClick(Sender: TObject);
+begin
+  With TControllerCEP.New do
+  begin
+      PesquisarCEP(frmBuscaCep.edtCep.Text);
+
+      if ListaCeps.Count > 0 then
+
+  end;
+end;
+
+procedure TFrBuscarCEP.PopularListView;
+begin
+
+end;
+
+end.

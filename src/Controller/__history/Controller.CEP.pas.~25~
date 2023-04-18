@@ -1,0 +1,96 @@
+unit Controller.CEP;
+
+interface
+
+uses
+  Model.CEP.Interfaces,
+  Model.Request.Interfaces,
+  System.Generics.Collections,
+  System.JSON;
+
+type
+  TControllerCEP = class(TInterfacedObject, IControllerCEP)
+  Private
+    FListaCEPs: TList<ICEP>;
+  Public
+    class function New: IControllerCEP;
+
+    constructor Create;
+    Destructor Destroy; override;
+
+    procedure RequestCEP(aCEP: String);
+    procedure Gravar;
+
+    Procedure PesquisarCEP(aCEP: String);
+  end;
+
+implementation
+
+uses
+  Model.CEP,
+  Model.Request.Factory,
+  System.SysUtils,
+  DAO.Cep,
+  DataModule;
+
+{ TControllerCEP }
+
+class function TControllerCEP.New: IControllerCEP;
+begin
+  Result := Self.Create;
+end;
+
+constructor TControllerCEP.Create;
+begin
+  FListaCEPs := TList<ICEP>.Create;
+end;
+
+destructor TControllerCEP.Destroy;
+begin
+  if Assigned(FListaCEPs) then
+      FreeAndNil(FListaCEPs);
+
+  inherited;
+end;
+
+procedure TControllerCEP.RequestCEP(aCEP: String);
+begin
+  try
+      With TFactorytRequest.NewCEP.Consultar(aCEP) do
+      begin
+          if StatusCode <> 200 then
+              raise Exception.Create('Não foi possivel consultar o cep, aguarde um momento...');
+
+          FListaCEPs.ParseJSONToCEP(Response);
+      end;
+  except on E: Exception do
+      raise Exception.Create(E.Message);
+  end;
+end;
+
+procedure TControllerCEP.Gravar;
+begin
+  TDAOCep.New(Dm.FdConnSQLite).GravarCeps(FListaCEPs);
+end;
+
+procedure TControllerCEP.PesquisarCEP;
+var xCep: ICEP;
+begin
+  xCep     := TCEP.New;
+  xCep.CEP := aCEP;
+
+  FListaCEPs.Add(xCep);
+
+  With TDAOCep.New(Dm.FdConnSQLite) do
+  begin
+      if Existe(FListaCEPs.First) then
+          Consultar(FListaCeps)
+      else
+      begin
+          RequestCEP(FListaCEPs.First.CEP);
+          GravarCeps(FListaCEPs);
+      end;
+  end;
+end;
+
+end.

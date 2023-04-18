@@ -1,0 +1,24 @@
+unit Model.CEP;
+
+interface
+
+uses
+  Model.CEP.Interfaces;
+
+type
+  TCEP = class(TInterfacedObject, ICEP)
+  Private
+  Public
+    class function New: ICEP;
+  end;
+
+implementation
+
+{ TCEP }
+
+class function TCEP.New: ICEP;
+begin
+  Result := Self.Create;
+end;
+
+end.
