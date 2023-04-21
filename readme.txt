@@ -1,40 +1,14 @@
-Este é um aplicativo desenvolvido em Delphi versão 11 que permite a consulta de CEPs utilizando a API pública de https://brasilapi.com.br/docs
+README
 
-Funcionalidades
-Consulta de CEP por meio da API do ViaCEP;
-Consulta primeiramente o banco de dados;
-Exibição do endereço completo correspondente ao CEP consultado;
-Gravação em banco de dados do resultado quando a consulta via API obter sucesso;
-Método de busca automática configurável;
+Este software foi desenvolvido por Romulo Tolfo e utiliza 100% da linguagem de programação Pascal. O objetivo do software é permitir a busca de CEPs em uma base de dados online com API integrada e salvar os resultados no banco de dados.
 
-Requisitos do sistema
-Sistema operacional Windows;
-Delphi XE ou superior;
-Acesso à internet para realizar as consultas na API do ViaCEP.
+Configuração:
+Para utilizar o software, basta abrir o aplicativo e inserir os dados solicitados para conectar ao banco PostgreSQL que deseja utilizar. Ao se conectar, o software irá gerar um arquivo config.ini junto ao executável.
 
-Instalação
-NECESSARIA CONFIGURAÇÃO DO BANCO DE DADOS;
-Clone ou faça o download deste repositório;
-Abra o projeto no Delphi;
-Compile o projeto para gerar o arquivo executável;
-Execute o arquivo gerado para utilizar o aplicativo.
+Funcionamento:
+A busca de CEPs é realizada primeiramente no banco de dados e, caso não exista, é feita uma busca na API integrada. A busca automática pode ser configurada e ativada na aba de configurações do software.
 
-Configuração Banco de Dados
-Neste projeto foi optado por utilizar conexão ADO criada em tempo de execução;
-Na pasta chamada configuração que acompanha o executavel, acompanha drivers necessários para sistema 32 e 64 bits;
-No windows abrir, ODBC data sources conforme seu sistema;
-Verificar se existe o metodo POSTGRESQL35W, caso não haja, é necessário criar a conexão em DSN DE USUARIO > ADICIONAR > Preencher com o database do seu postgres;
-Ao testar a conexão se funcionou, basta ir para o executável, rodá-lo e configurar manualmente o banco dentro da aplicação.
+A aba "Visualiza" é destinada à consulta de dados, permitindo que os dados sejam editados diretamente no grid e salvos ao teclar Enter.
 
-
-Uso
-Abra o aplicativo;
-Insira o CEP que deseja consultar no campo correspondente;
-Clique no botão "Consultar";
-O endereço correspondente ao CEP será exibido na tela;
-
-Contribuição
-Contribuições são bem-vindas! Se você encontrou um problema ou tem uma sugestão de melhoria, abra uma issue neste repositório ou envie um pull request.
-
-Licença
-##
+Tempo estimado para realização:
+O tempo estimado para a realização deste projeto foi de 20 horas.
